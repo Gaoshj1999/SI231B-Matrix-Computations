@@ -1,0 +1,186 @@
+\documentclass[english,onecolumn]{IEEEtran}
+%\usepackage{CTEX}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{luainputenc}
+\usepackage[letterpaper]{geometry}
+\geometry{verbose}
+\usepackage{amsfonts}
+\usepackage{babel}
+
+\usepackage{extarrows}
+\usepackage[colorlinks]{hyperref}
+\usepackage{listings}
+\usepackage{color,xcolor}
+\usepackage{caption}
+\usepackage{amsmath,graphicx}
+\usepackage{algorithm}  
+\usepackage{algpseudocode} 
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}  % Use Input in the format of Algorithm  
+\renewcommand{\algorithmicensure}{\textbf{Output:}} % Use Output in the format of Algorithm
+\newenvironment{breakablealgorithm}
+\usepackage{subfigure} 
+\usepackage{cite}
+\usepackage{amsthm,amssymb,amsfonts}
+\usepackage{textcomp}
+\usepackage{bm}
+\usepackage{booktabs}
+\definecolor{manpurple}{rgb}{0.419607843,0.1725490196,0.56862745098}
+\definecolor{xinblue}{rgb}{0.3882, 0.9216, 0.9137}
+\definecolor{Khaki}{rgb}{0.9411, 0.9020, 0.5490}
+\definecolor{orangered}{rgb}{1, 0.2706, 0}
+\definecolor{darkcyan}{rgb}{0, 0.5451, 0.5451}
+\definecolor{gold}{rgb}{1, 0.8431, 0}
+\definecolor{darkorange}{rgb}{1, 0.5490, 0}
+\definecolor{salmon}{rgb}{1, 0.5020, 0.4471}
+
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+\topmargin            -18.0mm
+\textheight           226.0mm
+\oddsidemargin      -4.0mm
+\textwidth            166.0mm
+\def\baselinestretch{1.5}
+
+
+
+\begin{document}
+
+\begin{center}
+	\textbf{\LARGE{SI231 - Matrix Computations, 2021 Fall}}\\
+	{\Large Solution of Homework Set \#3}\\
+	\texttt{Prof. Yue Qiu}
+\par\end{center}
+
+\noindent
+\rule{\linewidth}{0.4pt}
+% \noindent
+% \rule{\linewidth}{0.4pt}
+{\bf Acknowledgements:}
+\begin{enumerate}
+	\item Deadline: {\bf \textcolor{red}{2021-11-16 23:59:59}}
+	\item \textbf{Late Policy details} can be found on piazza.
+% 	you need apply to TA Xinyue Zhang(zhangxy11@) before the due.
+	\item Submit your homework in \textbf{Homework 3} on \textbf{Gradscope}. Entry Code: \textbf{2RY68R}. Make sure that you have correctly select pages for each problem. If not, you probably will get 0 point.
+% 	Remember to indicate pages where each questions are while submitting on Gradscope.
+	\item No handwritten homework is accepted. You need to write \LaTeX. (If you have difficulty in using \LaTeX, you are allowed to use \textbf{MS Word or Pages} for the first and the second homework to accommodate yourself.)
+	\item Use the given template and give your solution in English. Solution in Chinese is not allowed.
+	\item Your homework should be uploaded in the PDF format, and the naming format of the file is not specified.
+	\item For the calculation problems, you are highly required to write down your solution procedures in detail. And \textbf{all values must be represented by integers, fractions or square root}, floating points are not accepted.
+\end{enumerate}
+\rule{\linewidth}{0.4pt}
+
+\section{QR decomposition via Gram-Schmidt Orthogonality}
+
+\noindent\textbf{Problem 1}. \textcolor{blue}{(15 points + 5 points)}\\
+Given a matrix $\mathbf{A} = \begin{bmatrix}
+ 1 &  3 &  7 \\ 
+ 1 &  3 &  1  \\ 
+ 1 &  -1 &  3 \\ 
+ -1&  1 &  3 
+\end{bmatrix}$ \\
+\begin{enumerate}
+    \item Give the QR decomposition via Gram-Schmidt Orthogonality. You  should  write  the  derivation  of finding the  orthogonal matrix $\mathbf{Q}$  and upper triangular matrix $\mathbf{R}$.
+    \item Solve least squares problems $\min \Vert \mathbf{Ax} - \mathbf{b} \Vert_2$ via  QR decomposition where $\mathbf{b} = \begin{bmatrix}
+ 6 & 6 & 8&8 \end{bmatrix}^T$.
+\end{enumerate}
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+\newpage
+\noindent\textbf{Problem 2}. \textcolor{blue}{(16 points + 4 points)}\\
+Consider the subspace $\mathcal{S}$ spanned by $\{{\bf a}_1, {\bf a}_2, {\bf a}_3, {\bf a}_4\}$,
+	\[
+	{\bf a}_1 = \begin{bmatrix} 1 \\ \epsilon \\ \epsilon \\ \epsilon \end{bmatrix}\,,\quad 
+	{\bf a}_2 =  \begin{bmatrix}1 \\0 \\ \epsilon \\ \epsilon \end{bmatrix}\,,\quad 
+	{\bf a}_3 =  \begin{bmatrix}1 \\ \epsilon \\ 0 \\ \epsilon\end{bmatrix}\,,\quad
+	{\bf a}_4 =  \begin{bmatrix}1 \\ \epsilon \\  \epsilon  \\ 0\end{bmatrix}\,,
+	\]
+	where $\epsilon$ is a small real number such that $1+k\epsilon^2  \approx 1$ $(k\in\mathbb{N}^+)$. Use the \textbf{classical} Gram-Schmidt algorithm and the \textbf{modified} Gram-Schmidt algorithm respectively, find two sets of basis for $\mathcal{S}$ by hand (derivation is expected). Are the two sets of basis the same? If not, which one is the desired orthogonal basis? Report what you have found.
+
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+
+\newpage
+\section{QR decomposition via Householder reflection}
+\noindent\textbf{Problem 1}. \textcolor{blue}{(15 points + 5 points)}\\
+Consider a matrix $\mathbf{A} \in \mathbb{R}^{4 \times 3}$. Let  $\mathbf{A} = \begin{bmatrix}
+ 1 & 1 & -4\\ 
+ 2 & -4 & -4\\ 
+ 2 & -4 & -6\\ 
+ 0 & 1 & 1
+\end{bmatrix}$ \\
+\begin{enumerate}
+  \item Use Householder reflection to give the full QR decomposition of matrix $ \mathbf{A}$, i.e. $ \mathbf{A}= \mathbf{QR}$ while $\mathbf{QQ^T}=I$.
+  \item For $\mathbf{b} = \begin{bmatrix}
+ 9 & 14 & -15 \end{bmatrix}^T \in \mathbb{R}^{3} $, solve the underdetermined system $\mathbf{A^Tx} = \mathbf{b}$ via QR decomposition of $\mathbf{A}$. 
+\end{enumerate}
+% \textbf{(You are highly required to write down your solution procedures in detail. And all values must be represented by integers or fractions, floating points are not accepted.)}
+
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+
+
+\newpage
+\section{QR decomposition via Givens rotation}
+
+\noindent\textbf{Problem 1}. \textcolor{blue}{(9 points + 9 points + 2 points)}\\
+Given a dense matrix 
+\begin{equation}
+    \mathbf{A} = \begin{bmatrix}
+    1&2&-1\\
+    -1&3&2\\
+    1&-2&3
+    \end{bmatrix}
+\end{equation}
+and a sparse matrix 
+\begin{equation}
+    \mathbf{B} = \begin{bmatrix}
+    1&0&0&0&2\\
+    0&3&0&4&0\\
+    1&0&-1&0&2\\
+    0&0&0&0&1\\
+    0&3&0&0&2
+    \end{bmatrix}
+\end{equation}
+\begin{itemize}
+    \item[1)] Give the QR decomposition of $\mathbf{A}$ with $\mathbf{Q}$ being square.
+    \item[2)] Give the QR decomposition of $\mathbf{B}$ with $\mathbf{Q}$ being square.
+    \item[3)] Discuss when Givens rotation is better than Householder reflection and when Householder reflection is better than Givens rotation.
+\end{itemize}
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+
+
+\newpage
+\section{Projection}
+
+\noindent\textbf{Problem 1}. \textcolor{blue}{(3 points + 7 points + 5 points + 5 points)}\\
+ Given matrix $\mathbf{A}$ as an $n \times n$ projector.
+\begin{itemize}
+\item[1)] Prove that $\mathcal{R}(\mathbf{A}) \oplus \mathcal{N}(\mathbf{A})= \mathbf{R}^{n}$. 
+\item[2)] Prove the matrix $\mathbf{A}^{T}$ is also a projector. If $\mathbf{A}$ is a orthogonal projector, prove that $\mathbf{A}^{T}$=$\mathbf{A}$.
+\item[3)] Is the product of a series of projectors still a projector? For \emph{Yes}, please give the proof; For \emph{No}, please give an example.
+\item[4)] If $\mathbf{A}$ is the orthogonal projector onto $\mathcal{N}(\mathbf{B})$ ($\mathbf{B}$ is an $m \times n$ matrix may not be full rank), please determine $\mathbf{A}$ using $\mathbf{B}$ and give your reason.
+
+\emph{Hint}: $\mathbf{B}^{\dag}$ is the pseudo inverse of $\mathbf{B}$ satisfies the following properties:
+\begin{enumerate}
+    \item $\mathbf{B}\mathbf{B}^{\dag}\mathbf{B}=\mathbf{B}$
+    \item
+    $\mathbf{B}^{\dag}\mathbf{B}\mathbf{B}^{\dag}=\mathbf{B}^{\dag}$
+    \item
+    $(\mathbf{B}\mathbf{B}^{\dag})^{T}=(\mathbf{B}\mathbf{B}^{\dag})$
+    \item
+     $(\mathbf{B}^{\dag}\mathbf{B})^{T}=(\mathbf{B}^{\dag}\mathbf{B})$   
+\end{enumerate}
+\end{itemize}
+
+\noindent\textcolor{blue}{
+\textbf{Solution:}
+}
+
+\noindent
+%\textcolor{red}{\textbf{Remarks:}
+
+\end{document}
