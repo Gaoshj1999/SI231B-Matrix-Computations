@@ -1,1 +1,2 @@
-*.js linguist-language=Java
+*.yaml linguist-language=Python
+*.xml linguist-language=Python
