@@ -1,0 +1,267 @@
+\documentclass[english,onecolumn]{IEEEtran}
+%\usepackage{CTEX}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{luainputenc}
+\usepackage[letterpaper]{geometry}
+\geometry{verbose}
+\usepackage{babel}
+\usepackage{ulem}
+\usepackage{extarrows}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{amsmath,graphicx}
+\usepackage{subfigure} 
+\usepackage[colorlinks]{hyperref}
+\usepackage{cite}
+\usepackage{amsthm,amssymb,amsfonts}
+\usepackage{textcomp}
+\usepackage{bm,pifont}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xparse}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{bm}
+\usepackage{booktabs}
+% \usepackage{cleveref}
+\definecolor{manpurple}{rgb}{0.419607843,0.1725490196,0.56862745098}
+\definecolor{xinblue}{rgb}{0.3882, 0.9216, 0.9137}
+\definecolor{Khaki}{rgb}{0.9411, 0.9020, 0.5490}
+\definecolor{orangered}{rgb}{1, 0.2706, 0}
+\definecolor{darkcyan}{rgb}{0, 0.5451, 0.5451}
+\definecolor{gold}{rgb}{1, 0.8431, 0}
+\definecolor{darkorange}{rgb}{1, 0.5490, 0}
+\definecolor{salmon}{rgb}{1, 0.5020, 0.4471}
+
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+\topmargin            -18.0mm
+\textheight           226.0mm
+\oddsidemargin      -4.0mm
+\textwidth            166.0mm
+\def\baselinestretch{1.5}
+
+
+
+\begin{document}
+
+\begin{center}
+	\textbf{\LARGE{SI231 - Matrix Computations, 2021 Fall}}\\
+	{\Large Solution of Homework Set \#4}\\
+	\texttt{Prof. Yue Qiu}
+\par\end{center}
+
+\noindent
+\rule{\linewidth}{0.4pt}
+% \noindent
+% \rule{\linewidth}{0.4pt}
+{\bf Acknowledgements:}
+\begin{enumerate}
+	\item Deadline: {\bf \textcolor{red}{2021-12-01 23:59:59}}
+	\item \textbf{Late Policy details} can be found on piazza.
+	\item Submit your pdf homework in \textbf{Homework 4} on \textbf{Gradscope}. Make sure that you have correctly selected pages for each problem. If not, you probably will get 0 point.
+	\item No handwritten homework is accepted. You need to write \LaTeX. 
+% 	If you have difficulty in using \LaTeX, you are allowed to use \textbf{MS Word or Pages} for the first and the second homework to accommodate yourself.)
+	\item Use the given template and give your solution in English. Solution in Chinese is not allowed.
+	\item Your homework should be uploaded in the PDF format, and the naming format of the file is not specified.
+	\item For the calculation problems, you are highly required to write down your solution procedures in detail. And \textbf{all values must be represented by integers, fractions or square root}, floating points are not accepted.
+	\item When handing in your homework in gradescope, package all your codes into \textbf{your\_student\_id+hw4\_code.zip}(must be zip) and upload it in \textbf{Homework 4 programming part}. In the package,  you  also  need  to  include  a  file  named  README.txt/md  to  clearly  identify  the function of each file. Make sure that your codes can run and are consistent with your homework.
+\end{enumerate}
+\rule{\linewidth}{0.4pt}
+\section{Eigenvalue and eigenspace\textbf{}}
+\noindent\textbf{Problem 1}. \textcolor{blue}{(15 points)}\\
+For a n $\times$ n matrix $\mathbf{A}$.
+\begin{enumerate}
+\item If $\mathbf{A}$ is a orthogonal projector, prove that $\mathbf{A}$'s eigenvalue is 0 or 1.
+\item If $\mathbf{A}$ is a orthogonal projector, prove the eigenspace $\mathcal{S}_{1}$ associate with eigenvalue 1 and eigenspace $\mathcal{S}_{0}$ associate with eigenvalue 0 is orthogonal.
+\item Prove that the similar transform can not bridge the defective matrix and non-defective.
+
+\end{enumerate}
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+\newpage
+
+\section{Similarity Transformation and Eigenvalue Decomposition}
+
+\noindent\textbf{Problem 1}. \textcolor{blue}{(5 $\times$ 5 points)}
+\begin{enumerate}
+	\item For a non-singular $n\times n$ matrix $\mathbf{A}$, if $\lambda$ is the eigenvalue of $\mathbf{A}$, prove that $\lambda^{-1}$ is the eigenvalue of $\mathbf{A}^{-1}$.
+	\item For similar matrices $\mathbf{A}$ and $\mathbf{B}$, prove that they have the same characteristic polynomial.
+	\item For similar matrices $\mathbf{A}$ and $\mathbf{B}$, there is an invertible matrix $\mathbf{P}$ such that $\mathbf{A}=\mathbf{P^{-1}BP}$. If $\mathbf{v}$ is the eigenvector of $\mathbf{A}$, please give the eigenvector of $\mathbf{B}$.
+	\item If matrix $\mathbf{A}$ is Hermitian, prove that the eigenvectors of $\mathbf{A}$ corresponding to different eigenvalues are orthogonal. (Hint: Eigenvalues of Hermitian matrix are real.)
+ 	\item Consider a 3$\times$3 matrix $\mathbf{A} = \begin{bmatrix}
+ 1 & -1 & 0\\ 
+ -1 & 1 & 0\\ 
+ 3 & 3 & 2
+\end{bmatrix}$ , which is similar with the diagonal matrix $\Lambda$. Please use the eigenvalue decomposition to compute the matrix $\Lambda$ and the matrix $\mathbf{P}$ such that $\mathbf{A}=\mathbf{P}\Lambda\mathbf{P}^{-1}$. \textbf{You are required to convert the eigenvectors into unit vectors.}
+\end{enumerate}
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+\newpage
+
+\section{Eigenvalue Computations}
+
+\noindent\textbf{Problem 1}. \textcolor{blue}{(5 +16 +9 points)}\\
+Consider matrices 
+$$\mathbf{A}=\begin{bmatrix} 0 & 100 \\ 1 & 0 \end{bmatrix} \quad \text{and}  \quad
+\mathbf{B}=\begin{bmatrix} 10 & 1 & 2 & 3 & 4\\ 
+                            1 & 9 &-1 & 2 &-3\\           
+                            2 &-1 & 7 & 3 &-5\\ 
+                            3 & 2 & 3 & 12 &-1\\
+                            4 &-3 &-5 &-1 &15\\
+\end{bmatrix}$$
+with $\alpha,\beta >0$
+\begin{enumerate}
+    \item Find the eigenvalues and eigenvectors of $\mathbf{A}$ by hand. \textcolor{blue}{(5 points)}
+    \item Program \textbf{the power iteration} (See Algorithm \ref{alg:power_iter}) and \textbf{the inverse iteration} (See Algroithm \ref{alg:inverse_iter}) respectively and report the output of two algorithms for $\mathbf{A}$, do the two algorithms converge or not? Report what you have found (you can use plots to support your analysis). \textcolor{blue}{(13 points: programming takes 8 points and the analysis takes 5 points)}
+    After a few iterations, the sequence given by the power iteration fails to converge, explain why. \textcolor{blue}{(3 points)}
+    \item Program \textbf{Modified Power iteration }(see Algorithm \ref{alg:power_modified}) and report the output of the two power iteration algorithms (algorithm \ref{alg:power_iter} and \ref{alg:power_modified}) for $\mathbf{B}$ ($K = 100, tol =10^{-7}$). Which algorithm is more accurate for the same tolerance (you can run 10 times and compare the average output).\textcolor{blue}{(9 points: programming takes 5 points and the analysis takes 4 points)}
+\end{enumerate}
+    \textbf{Remarks:}
+    \begin{itemize}
+        \item Programming languages are not restricted. You are free to use MATLAB's $\textbf{eig}$ or Python's $\textbf{numpy.linalg.eig}$ to generate the eigenvalues and eigenvectors of $\mathbf{A}$ as a reference to study  the convergence.
+        \item The function accepts input: $n \times n $ matrix $\mathbf{A}$,  a $n \times 1$ vector $\mathbf{q}$, tolerance, max iterations. And the function should return largest (smallest) eigenvalue and iterations $k$.
+        \item You need to write the demo script which can show your outputs, i.e., eigenvalues, iterations, errors, figures.
+    \end{itemize}
+
+\begin{algorithm}[htbp]
+	\label{alg:power_iter}
+	\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+	\caption{Power iteration}
+	\SetAlgoLined
+	\Input{$\mathbf{A} \in \mathbb{C}^{n \times n}$,initial vector $\mathbf{q}^{(0)}$, tolerance $tol$, $K$}
+ 	\textbf{Initilization:} $error = 1$, $k = 0$.\\
+	\While{$error > tol$ and $k <K$}{
+	    $k = k+1$\\
+		$\mathbf{z}^{(k)} = \mathbf{A} \mathbf{q}^{(k-1)}$ \\
+		$\mathbf{q}^{(k)} = \mathbf{z}^{(k)}/ \|\mathbf{z}^{(k)}\|_2$\\
+		$\lambda^{(k)} = (\mathbf{q}^{(k)})^H\mathbf{A} \mathbf{q}^{(k)}$\\
+		$error =\Vert \mathbf{q}^{(k)} - \mathbf{q}^{(k-1)}   \Vert_2 $\\
+		
+		
+	}
+	\Output{$\lambda^{(k)}$, $k$}
+\end{algorithm}
+
+\begin{algorithm}[htbp]
+	\label{alg:inverse_iter}
+	\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+	\caption{Inverse iteration}
+	\SetAlgoLined
+	\Input{$\mathbf{A} \in \mathbb{C}^{n\times n}$, $\mu$,initial vector $\mathbf{q}^{(0)}$, tolerance $tol$,$K$}
+	\textbf{Initilization:} $error = 1$, $k = 0$.\\
+	\While{$error > tol$ and $k <K$}{
+	    $k = k+1$\\
+		$\mathbf{z}^{(k)} = (\mathbf{A} - \mu \mathbf{I})^{-1} \mathbf{q}^{(k-1)}$ \\
+		$\mathbf{q}^{(k)} = \mathbf{z}^{(k)}/ \|\mathbf{z}^{(k)}\|_2$\\
+		$\lambda^{(k)} = (\mathbf{q}^{(k)})^H\mathbf{A} \mathbf{q}^{(k)}$\\
+		$error =\Vert \mathbf{q}^{(k)} - \mathbf{q}^{(k-1)}   \Vert_2 $\\
+	}
+	\Output{$\lambda^{(k)}$,$k$}
+\end{algorithm}
+
+\begin{algorithm}[htbp]
+	\label{alg:power_modified}
+	\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+	\caption{Modified Power iteration}
+	\SetAlgoLined
+	\Input{$\mathbf{A} \in \mathbb{C}^{n \times n}$,initial vector $\mathbf{q}^{(0)}$, tolerance $tol$,$K$}
+ 	\textbf{Initilization:} $\mathbf{V}^{(0)} = \mathbf{A}$, $error = 1$, $k = 0$.\\
+	\While{$error > tol$ and $k < K$}{
+	    $k = k+1$\\
+		$\mathbf{U}^{(k)} = \mathbf{V}^{(k-1)} * \mathbf{V}^{(k-1)}$ \\
+		$\mathbf{V}^{(k)} = \mathbf{U}^{(k)}/ \text{trace}(\mathbf{U}^{(k)})$\\
+		$q = \mathbf{V}^{k}q^{(0)}$\\
+		$\lambda^{(k)} = \frac{(\mathbf{q})^H\mathbf{V}^{(0)} \mathbf{q}} {(\mathbf{q})^H\mathbf{q}}$\\
+		
+		$error =\Vert \mathbf{V}^{(k)} - \mathbf{V}^{(k-1)}   \Vert_2 $\\
+	}
+
+	\Output{$\lambda^{(k)}$, $k$}
+\end{algorithm}
+\newpage
+
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+\newpage
+\noindent
+
+\section{QR Iteration and Hessenberg QR Iteration}
+
+\noindent\textbf{Problem 1}. \textcolor{blue}{(18 + 4 + 7 points)}\\
+For $\mathbf{A} \in \mathbb{C}^{n \times n}$, consider the QR iteration (see Algorithm \ref{alg:QR_Iteration}) for finding all the eigenvalues and eigenvectors of $\mathbf{A}$. In each iteration $\mathbf{A}^{(k)}$ is similar to $\mathbf{A}$. However, $\mathcal{O}(n^3)$ flops that required in each iteration make this algorithm computationally expensive. Then, we try to find a matrix structure that is preserved by the QR algorithm and that lowers the cost of a single iteration step. One simple matrix structure that is close to upper triangular form and is preserved by the QR algorithm is the Hessenberg form. Therefore, by Givens rotations each QR Iteration only takes $\mathcal{O}(n^2)$ flops (see Algorithm \ref{alg:Hessen_QR_Iteration}). Besides, QR iteration may not converge as shown in class, \textbf{shift} is required (see Algorithm \ref{alg:Shifted_QR_Iteration}).
+\\
+Given matrices
+$$\mathbf{D} = \begin{bmatrix}10 & 0 & ... & 0\\
+0 & 9 & ... & 0\\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & ... & 1 \end{bmatrix} \quad
+\mathbf{B} = \begin{bmatrix}
+0 & ... &0 & 1\\
+0 & ...& 1& 0\\
+\vdots & \ddots & \vdots & \vdots\\
+1 & ... & 0 & 0
+\end{bmatrix}$$
+\begin{enumerate}
+    \item Generate a dense symmetric matrix $\mathbf{A}\in \mathbb{R}^{10\times 10}$ whose eigenvalues are the diagonal entry of $\mathbf{D}$ and whose eigenvectors are an orthogonalized set of normalized Gaussian random vectors of length $10$ (It can be computed via the Q factor from a QR factorization of a $10\times 10$ Gaussain random matrix).
+    Program \textbf{QR Iteration} and \textbf{Hessenberg QR Iteration} respectively. Use them on $\mathbf{A}$ and report error $\|diag(\mathbf{H}^{(k)}) - diag(\mathbf{D})\|_2$ in each iteration($K = 30$). Be specific, you show attach an \textit{error vs iteration time} figure in the pdf.
+    \item Prove that in each iteration of QR Iteration with shifts $\mathbf{A}^{(k)}$ is similar to $\mathbf{A}$.
+    \item Program \textbf{QR Iteration with shifts} and use it on $\mathbf{B}$ with a fixed shift value $\mu = 2$. Report error $\|diag(\mathbf{H}^{(k)}) - diag(\mathbf{H}^{(k-1)})\|_2$ in each iteration($K = 100$). Be specific, you show attach an \textit{error vs iteration} figure in the pdf.
+\end{enumerate}
+{\bf Remark:}
+\begin{enumerate}
+    \item You can use build-in $QR$ function when generating matrix, but do not use build-in $QR$ when implementing QR Iteration algorithms.
+    \item Attach your figures in pdf which means no figures in pdf no point.
+    % \item When handing in your homework in gradescope, package all your codes into \textbf{your\_student\_id+hw4\_code.zip}(must be zip) and upload it in \textbf{Homework 4 programming part}. In the package,  you  also  need  to  include  a  file  named  README.txt/md  to  clearly  identify  the function of each file. Make sure that your codes can run and are consistent with your homework.
+\end{enumerate}
+\begin{algorithm}[htbp]
+	\label{alg:QR_Iteration}
+	\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+	\caption{QR iteration}
+	\SetAlgoLined
+	\Input{$\mathbf{A} \in \mathbb{C}^{n \times n}$,$K$}
+	\textbf{Initilization:} $\mathbf{A}^{(0)} = \mathbf{A}$\\
+	\For{$k = 1,2,...,K$}{
+		$\mathbf{Q}^{(k)}\mathbf{R}^{(k)} = \mathbf{A}^{(k-1)}$ \quad \textcolor{blue}{\text{ QR factorization of }$\mathbf{A}^{(k-1)}$}\\
+		$\mathbf{A}^{(k)} = \mathbf{R}^{(k)}\mathbf{Q}^{(k)}$
+	}
+	\Output{$\mathbf{A}^{(k)}$}
+\end{algorithm}
+
+\begin{algorithm}[htbp]
+	\label{alg:Hessen_QR_Iteration}
+	\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+	\caption{Hessenberg QR iteration}
+	\SetAlgoLined
+	\Input{$\mathbf{A} \in \mathbb{C}^{n \times n}$,$K$}
+ 	\textbf{Initilization:} $\mathbf{H}^{(0)} = \mathbf{Q}^{H}\mathbf{A}\mathbf{Q}$ \quad\textcolor{blue}{\text{ Hessenberg reduction for }$\mathbf{A}$}\\
+	\For{$k = 1,2,...,K$}{
+		$\mathbf{Q}^{(k)}\mathbf{R}^{(k)} = \mathbf{H}^{(k-1)}$ \quad \textcolor{blue}{\text{ QR factorization of }$\mathbf{H}^{(k-1)}$ \text{using Givens QR}}\\
+		$\mathbf{H}^{(k)} = \mathbf{R}^{(k)}\mathbf{Q}^{(k)}$
+	}
+	\Output{$\mathbf{H}^{(k)}$}
+\end{algorithm}
+
+\begin{algorithm}[htbp!]
+	\label{alg:Shifted_QR_Iteration}
+	\SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+	\caption{QR iteration with shifts}
+	\SetAlgoLined
+	\Input{$\mathbf{A} \in \mathbb{C}^{n \times n}$,$K$}
+	\textbf{Initilization:} $\mathbf{A}^{(0)} = \mathbf{A}$\\
+	\For{$k = 1,2,...,K$}{
+	    \text{Pick a shift }$\mu^{(k)}$\\
+		$\mathbf{Q}^{(k)}\mathbf{R}^{(k)} = \mathbf{A}^{(k-1)} - \mu^{(k)}\mathbf{I}$ \quad \textcolor{blue}{\text{ QR factorization of }$\mathbf{A}^{(k-1)} - \mu^{(k)}\mathbf{I}$}\\
+		$\mathbf{A}^{(k)} = \mathbf{R}^{(k)}\mathbf{Q}^{(k)}+\mu^{(k)}\mathbf{I}$
+	}
+	\Output{$\mathbf{A}^{(k)}$}
+\end{algorithm}
+
+\newpage
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+	}
+\end{document}
