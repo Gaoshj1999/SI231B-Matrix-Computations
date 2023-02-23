@@ -1,0 +1,236 @@
+\documentclass[english,onecolumn]{IEEEtran}
+%\usepackage{CTEX}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{luainputenc}
+\usepackage[letterpaper]{geometry}
+\geometry{verbose}
+\usepackage{babel}
+\usepackage{ulem}
+\usepackage{extarrows}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{amsmath,graphicx}
+\usepackage{subfigure} 
+\usepackage[colorlinks]{hyperref}
+\usepackage{cite}
+\usepackage{amsthm,amssymb,amsfonts}
+\usepackage{textcomp}
+\usepackage{bm,pifont}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xparse}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{language=Matlab}
+\lstset{
+  language=Matlab,  
+  rulesepcolor=\color{red!20!green!20!blue!20},
+  keywordstyle=\color{blue!90}\bfseries, 
+  commentstyle=\color{red!10!green!70}\textit,    
+  showstringspaces=false,
+  numbers=left, 
+  numberstyle=\tiny,   
+  stringstyle=\ttfamily, 
+  breaklines=true, 
+  extendedchars=false,  
+  escapebegin=\begin{CJK*},escapeend=\end{CJK*},  
+  texcl=true}
+\lstset{breaklines}
+\lstset{extendedchars=false}
+% \usepackage{cleveref}
+\definecolor{manpurple}{rgb}{0.419607843,0.1725490196,0.56862745098}
+\definecolor{xinblue}{rgb}{0.3882, 0.9216, 0.9137}
+\definecolor{Khaki}{rgb}{0.9411, 0.9020, 0.5490}
+\definecolor{orangered}{rgb}{1, 0.2706, 0}
+\definecolor{darkcyan}{rgb}{0, 0.5451, 0.5451}
+\definecolor{gold}{rgb}{1, 0.8431, 0}
+\definecolor{darkorange}{rgb}{1, 0.5490, 0}
+\definecolor{salmon}{rgb}{1, 0.5020, 0.4471}
+
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+\topmargin            -18.0mm
+\textheight           226.0mm
+\oddsidemargin      -4.0mm
+\textwidth            166.0mm
+\def\baselinestretch{1.5}
+
+
+
+\begin{document}
+\begin{center}
+	\textbf{\LARGE{SI231 - Matrix Computations, 2021 Fall}}\\
+	{\Large Solution of Homework Set \#5}\\
+	\texttt{Prof. Yue Qiu}
+\par\end{center}
+
+\noindent
+\rule{\linewidth}{0.4pt}
+% \noindent
+% \rule{\linewidth}{0.4pt}
+{\bf Acknowledgements:}
+\begin{enumerate}
+	\item Deadline: {\bf \textcolor{red}{2021-12-18 23:59:59}}
+	\item \textbf{Late Policy details} can be found on piazza.
+	\item Submit your pdf homework in \textbf{Homework 5} on \textbf{Gradscope}. Make sure that you have correctly selected pages for each problem. If not, you probably will get 0 point.
+	\item No handwritten homework is accepted. You need to write \LaTeX. 
+	\item Use the given template and give your solution in English. Solution in Chinese is not allowed.
+	\item Your homework should be uploaded in the PDF format, and the naming format of the file is not specified.
+	\item For the calculation problems, you are highly required to write down your solution procedures in detail. And \textbf{all values must be represented by integers, fractions or square root}, floating points are not accepted.
+	\item When handing in your homework in gradescope, package all your codes into \textbf{your\_student\_id+hw5\_code.zip}(must be zip) and upload it in \textbf{Homework 5 programming part}. In the package,  you  also  need  to  include  a  file  named  README.txt/md  to  clearly  identify  the function of each file. Make sure that your codes can run and are consistent with your homework.
+\end{enumerate}
+\rule{\linewidth}{0.4pt}
+
+\section{Singular Value Decomposition}
+
+\noindent\textbf{Problem 1}. \textcolor{blue}{(10 + 10 points)}
+\begin{enumerate}
+    \item We have n $\times$ n real matrix $\mathbf{B}$, prove that $\mathbf{B}\mathbf{B}^{\dag}$ is the orthogonal projection onto $\mathcal{R}(\mathbf{B})$ using singular value decomposition.
+    \item We have n $\times$ n real matrix $\mathbf{B}$, prove $\left \| \mathbf{B} \right \|_{F}$ equal to $ \left \| \Sigma \right \| _{F} $ with $\mathbf{B}=\mathbf{U}\Sigma\mathbf{V}^T$.
+    (Hint: $\left \| \mathbf{B} \right \|_{F}$ = $\sqrt{\Sigma_{i=1}^{n} \Sigma_{j=1}^{n} \mathbf{b}_{i,j}^{2}}$)
+\end{enumerate}
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+
+\newpage
+
+\noindent\textbf{Problem 2}. \textcolor{blue}{(10 + 10 points)}
+\begin{enumerate}
+	\item Assume the singular value decomposition of matrix $\mathbf{A}$ is $\mathbf{A}=\mathbf{U}\Sigma\mathbf{V}^H$. Solve the singular value decomposition of matrix $\begin{bmatrix}
+ \mathbf{A}_R & -\mathbf{A}_I \\ 
+ \mathbf{A}_I & \mathbf{A}_R
+\end{bmatrix}$ via $\mathbf{U}_R$, $\mathbf{U}_I$, $\mathbf{V}_R$, $\mathbf{V}_I$.\\
+(\textbf{Hint}: $\mathbf{A}_R$ = Re[$\mathbf{A}$], $\mathbf{U}_R$ = Re[$\mathbf{U}$] and $\mathbf{V}_R$ = Re[$\mathbf{V}$]. $\mathbf{A}_I$ = Im[$\mathbf{A}$], $\mathbf{U}_I$ = Im[$\mathbf{U}$] and $\mathbf{A}_I$ = Im[$\mathbf{A}$].)
+ 	\item Consider a 3$\times$2 matrix $\mathbf{A} = \begin{bmatrix}
+ 1 & 2\\ 
+ 0 & 0\\ 
+ 0 & 0  
+\end{bmatrix}$ , compute the singular value decomposition of matrix $\mathbf{A}=\mathbf{U}\Sigma\mathbf{V}^T$.
+\end{enumerate}
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+	}
+
+\noindent\textbf{Problem 3}. \textcolor{blue}{(2 + 3 points)}
+Consider two linear systems $\mathbf{Ax=0}$ and $\mathbf{Bx=0}$. Give $\mathbf{A} = \begin{bmatrix}
+ 1 & -1 & 0 & 0 \\ 
+ 0 & 0 & 1 & 1 
+\end{bmatrix}$ and $\mathbf{B} = \begin{bmatrix}
+ 1 & -1 & 1000000 & 1000000 \\ 
+ 0 & 0 & 1 & 1 
+\end{bmatrix}$\\
+\begin{enumerate}
+	\item Use \textbf{Matlab} or \textbf{Python} to calculate the 2 norm condition number of $\mathbf{A}$ and $\mathbf{B}$.
+ 	\item If there is a small perturbation that makes $\mathbf{Ax=}\begin{bmatrix}
+ 0  \\ 
+ 0.01 
+\end{bmatrix}$ and $\mathbf{Bx=}\begin{bmatrix}
+ 0  \\ 
+ 0.01 
+\end{bmatrix}$. Please illustrate the influence of this small perturbation on the two linear systems respectively through analyzing the form of matrix $\mathbf{A}$ and $\mathbf{B}$.
+ \end{enumerate}
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+\newpage
+\section{low rank approximation}
+
+\noindent\textbf{Problem 1}.  \textcolor{blue}{(10 + 7 + 10 points)}\\
+In this problem, we will learn how to use SVD to compress, or reduce the dimension of the data. The real data is with low rank internal, but often corrupted, or contaminated by noise, which leads to the full rank of the data matrix $\mathbf{A}\in\mathbb{R}^{D\times N}$ . To reduce the storage consumption of the real data (note that $D$ is extremely large in practical), we seek to find a low rank approximation to  $\mathbf{A}$, that is, we want to solve the problem
+\begin{align}
+    \min_{\mathbf{X}\in\mathbb{R}^{D\times N}}&\quad \|\mathbf{X}-\mathbf{A}\|_F^2\\
+    \mathrm{s.t.}&\quad \mathrm{rank}(\mathbf{X})\leq d
+\end{align}
+where $\|\cdot\|_F$ is the Frobenius norm, $d<< D$ is unknown.
+By the Theorem of PCA via SVD, the above problem is equivalent to the following problem (suppose the singular values of $\mathbf{A}$ are given by $\sigma_1(\mathbf{A})\geq\sigma_2(\mathbf{A})\geq\cdots\geq \sigma_K(\mathbf{A})\geq0$ and $K=\min\{D,N\}$):
+    % \begin{equation}
+    %     d^*=\min_{d=1,\dots,K}\left\{d\left|\sum_{i=d+1}^K\sigma_{i}^2(\mathbf{A})\right.\right\}
+    % \end{equation}
+    \begin{equation}
+        \min_{d=1,\dots,K}\quad\sum_{i=d+1}^K\sigma_{i}^2(\mathbf{A})
+    \end{equation}
+However, this is not a good criterion, since the optimal solution is given by $d^*=\mathrm{rank}(\mathbf{A})$ .
+
+The problem of determining the optimal dimension $d$ is in fact a "model selection" problem, which is due to the fact that choice of $d$ balances the complexity of the model and the storage of the data. There are many model selection criterion, we will learn two of them.
+
+\begin{enumerate}
+    \item The first way is to bound the residual of approximation, that is, suppose $\hat{\mathbf{X}}$ is the best $\mathrm{rank}-d$ approximation of $\mathbf{A}$, given a threshold $\tau>0$, we want to minimize the residual with respect to Frobinius-norm, that is
+    \begin{align}
+        \min_{d=1,\dots,K}&\quad \|\mathbf{A}-\hat{\mathbf{X}}\|_F^2\leq \tau
+    \end{align}
+    the problem can be explicitly written as
+    \begin{equation}\label{eq:2_norm_min}
+        d^*=\min_{d=1,\dots,K}\left\{d\left|\sum_{i=d+1}^K\sigma_{i}^2(\mathbf{A})\leq \tau\right.\right\}
+    \end{equation}
+    
+    \item Note that the first criterion (\ref{eq:2_norm_min}) depends on specific problem (singular values of data matrix are not invariant with respect to linear transformations), it is hard to chose a reasonable threshold. To generalize our criterion, we consider the normalized version of (\ref{eq:2_norm_min}), this new criterion, \textit{a.k.a} \textbf{variance explained ratio} in machine learning, is given by
+    \begin{equation}\label{eq:accumulated_error}
+        d^*=\min_{d=1,\dots,K}\left\{d\left|\frac{\sum_{i=d+1}^K\sigma_{i}^2(\mathbf{A})}{\sum_{i=1}^K\sigma_i^2(\mathbf{A})}\leq \tau\right.\right\}
+    \end{equation}
+\end{enumerate}
+Now, suppose the data matrix $\mathbf{A}\in\mathbb{R}^{D\times N}$ is \emph{data1/data1.mat}. You are required to 
+\begin{enumerate}
+    \item (\textcolor{blue}{5 + 5 points})Let $rank(\mathbf{A}) = r$ and $\mathbf{A}_k = \sum\limits_{i = 1}^{k} \sigma_i \mathbf{u}_i\mathbf{v}_i^T$ be the sum truncated after $k$ terms ($k<r$). Show that $\Vert \mathbf{A} - \mathbf{A}_k \Vert_2^2 = \sigma_{r+1}^2 $  and $\Vert \mathbf{A} - \mathbf{A}_k \Vert_F^2 = \sum\limits_{i=k+1}^r\sigma_{i}^2 $
+    \item (\textcolor{blue}{5 + 2 points}) Plot the squared singular values of $\mathbf{A}$  along with the threshold $\tau=150$, what is the solution to (\ref{eq:2_norm_min})?
+    \item (\textcolor{blue}{5 + 5 points}) Plot the figure of function 
+    \begin{equation}
+        f(d)=\frac{\sum_{i=d+1}^K\sigma_{i}^2(\mathbf{A})}{\sum_{i=1}^K\sigma_i^2(\mathbf{A})},\quad d=1,\dots,K
+    \end{equation}
+    and fill the following table from the figure with respect to (\ref{eq:accumulated_error}):
+    \begin{table}[htb]
+    \caption{The compression rate with respect different threshold}
+    \centering
+    \begin{tabular}{|l|l|l|l|l|}
+    \hline
+    \multicolumn{1}{|c|}{$\tau$} & 0.1 & 0.05 & 0.02 & 0.005 \\ \hline
+    Compression rate             &   &    &   &  \\ \hline
+    \end{tabular}
+    \end{table}
+    
+    where the compression rate is defined as 
+    \begin{equation}
+        \text{compression rate}=\frac{\#\{\text{entries in } \hat{\mathbf{X}}\}}{\#\{\text{entries in } \mathbf{A}\}}=\frac{d^*(D+N+1)}{DN}
+    \end{equation}
+\end{enumerate}
+
+
+{\bf Remarks}
+\begin{enumerate}
+    \item Please \textbf{insert your figures in your PDF}.
+    \item You can just mark the solution of problem 2) on your figure (\textbf{plot a vertical line with red color or mark the solution with marker}).
+    \item Please draw a continuous curve for problem 3), see \textit{stairs} function in Matlab, \textit{plt.step} function in Python for more details.
+    \item For simplicity, we omit some proof details, you may refer to \textit{Generalized Principal Component Analysis, Section 2.1} for more details.
+\end{enumerate}
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+	}
+\newpage
+
+\section{Regularized Least Squares}
+\noindent\textbf{Problem 1}. \textcolor{blue}{(11 + 11 + 6 points)} Denote a rank-$r$ matrix as $\mathbf{A}\in \mathbb{R}^{m\times n} (m\geq n > r)$, 
+and the SVD of it as $\mathbf{U}\begin{bmatrix}\mathbf{\Sigma}\\\mathbf{0}\end{bmatrix}\mathbf{V}^T$ with singluar values $\sigma_1 \geq \sigma_2 \geq ... \geq \sigma_r > 0$,
+where $\mathbf{U} = [\mathbf{u}_1,\mathbf{u}_2,...,\mathbf{u}_n]\in \mathbb{R}^{m\times n}$,
+ $\mathbf{V} = [\mathbf{v}_1,\mathbf{v}_2,...,\mathbf{v}_n]\in \mathbb{R}^{n\times n}$
+ and $\mathbf{\Sigma} = \text{diag}(\sigma_1,\sigma_2,...\sigma_r,0,...,0) \in \mathbb{R}^{n\times n}$.
+ Consider the Least Squares Problem and Regularized Least Squares Problem as follows
+\begin{align}
+    \min_{\mathbf{x}} \; & \|\mathbf{A}\mathbf{x} - \mathbf{b}\|_2^2, \label{ls} \\
+    \min_{\mathbf{x}} \; & \|\mathbf{A}\mathbf{x} - \mathbf{b}\|_2^2 + \lambda \|\mathbf{x}\|_2^2, \label{rls}
+\end{align}
+where $\lambda > 0$.
+\begin{enumerate}
+    \item Show the Least Squares solution of (\ref{ls}) is $\sum_{i = 1}^r \frac{\mathbf{u}_i^T\mathbf{b}}{\sigma_i}\mathbf{v}_i$.
+    \item Show the Regularized Least Squares solution of (\ref{rls}) is $\sum_{i = 1}^r \frac{\sigma_i(\mathbf{u}_i^T\mathbf{b})}{\sigma_i^2+\lambda}\mathbf{v}_i$.
+    \item Observe the solution of (\ref{ls}) and (\ref{rls}), and analysis how does "Regularization" work? In particular, what might happen when $\sigma_i \ll \lambda$ and $\sigma_i \gg \lambda$?
+\end{enumerate}
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+
+
+\end{document}
