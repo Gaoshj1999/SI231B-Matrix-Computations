@@ -1,0 +1,201 @@
+\documentclass[english,onecolumn]{IEEEtran}
+
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{luainputenc}
+\usepackage[letterpaper]{geometry}
+\geometry{verbose}
+\usepackage{babel}
+\usepackage{extarrows}
+\usepackage[colorlinks]{hyperref}
+\usepackage{listings}
+\usepackage{color,xcolor}
+\usepackage{graphicx}
+\usepackage{subfigure} 
+\usepackage{amsthm,amssymb,amsfonts}
+\usepackage{textcomp}
+\usepackage{bm}
+\usepackage{booktabs}
+
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+\topmargin            -18.0mm
+\textheight           226.0mm
+\oddsidemargin      -4.0mm
+\textwidth            166.0mm
+\def\baselinestretch{1.5}
+
+\DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
+\newcommand{\Ab}{\mathbf{A}}
+\newcommand{\Bb}{\mathbf{B}}
+\newcommand{\Ub}{\mathbf{U}}
+\newcommand{\Vb}{\mathbf{V}}
+\newcommand{\ub}{\mathbf{u}}
+\newcommand{\vb}{\mathbf{v}}
+\newcommand{\Ucal}{\mathbfcal{U}}
+\newcommand{\Wcal}{\mathbfcal{W}}
+\newcommand{\Vcal}{\mathbfcal{V}}
+\newcommand{\Xcal}{\mathbfcal{X}}
+\newcommand{\Ycal}{\mathbfcal{Y}}
+\newcommand{\Rbb}{\mathbb{R}}
+
+\begin{document}
+
+\begin{center}
+	\textbf{\LARGE{SI231 - Matrix Computations, 2021 Fall}}\\
+	{\Large Homework Set \#1}\\
+	\texttt{Prof. Yue Qiu}
+\par\end{center}
+
+\noindent
+\rule{\linewidth}{0.4pt}
+% \noindent
+% \rule{\linewidth}{0.4pt}
+{\bf Acknowledgements:}
+\begin{enumerate}
+	\item Deadline: {\bf \textcolor{red}{2021-10-12 23:59:59}}
+	\item \textbf{Late Policy details} can be found on piazza.
+	\item Submit your homework in \textbf{Homework 1} on \textbf{Gradscope}. Entry Code: \textbf{2RY68R}. Make sure that you have correctly select pages for each problem. If not, you probably will get 0 point.
+	\item No handwritten homework is accepted. You need to write \LaTeX. (If you have difficulties in using \LaTeX, you are allowed to use \textbf{MS Word or Pages} for the first and the second homework to accommodate yourself.)
+	\item Use the given template and give your solution in English. Solution in Chinese is not allowed.
+	\item Your homework should be uploaded in the PDF format, and the naming format of the file is not specified.
+\end{enumerate}
+\rule{\linewidth}{0.4pt}
+
+\section{Vector space and subspace}
+
+\noindent\textbf{Problem 1}. \textcolor{blue}{(6 points $\times$ 3)}
+\begin{enumerate}
+    \item Let $\Xcal$ and $\Ycal$ be two subspaces of a vector space $\Vcal$:
+    \begin{enumerate}
+        \item Prove that the intersection $\Xcal\cap\Ycal$ is also a subspace of $\Vcal$.
+        \item Show that the union of $\Xcal\cup\Ycal$ need not to be a subspace of $\Vcal$.
+    \end{enumerate}
+    \item Prove or give a counterexample:
+    \begin{enumerate}
+        \item If $\Ucal_1$, $\Ucal_2$, and $\Wcal$ are subspaces of $\Vcal$ such that $\Ucal_1+\Wcal = \Ucal_2+\Wcal$, then $\Ucal_1 = \Ucal_2$.
+        \item If $\Ucal_1$, $\Ucal_2$, and $\Wcal$ are subspaces of $\Vcal$ such that $\Vcal = \Ucal_1 \oplus \Wcal$ and $\Vcal = \Ucal_2 \oplus \Wcal$, then $\Ucal_1 = \Ucal_2$.\footnote{Let $\mathcal{S}_1$ and $\mathcal{S}_2$ be two subspaces of $\mathbb{R}^n$, if $\mathcal{S}_1 \cap \mathcal{S}_2 = \{ \mathbf{0}\}$ and $\mathcal{S}_1 + \mathcal{S}_2 = \mathbb{R}^n$, we define the \textbf{direct sum} $\mathbb{R}^n = \mathcal{S}_1 \oplus \mathcal{S}_2.$}.
+    \end{enumerate}
+    \item Let $\Ub = \{\ub_1,\ub_2,...,\ub_r\}$ and $\Vb = \{\ub_1,\ub_2,...,\ub_r,\vb\}$ be two sets of vectors from the same vector space, prove that $span(\Ub) = span(\Vb)$ if and only if $\vb\in span(\Ub)$.
+\end{enumerate}
+
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+
+\newpage
+
+\section{Basis, dimension and rank}
+\noindent\textbf{Problem 1}. \textcolor{blue}{(5 points $\times$ 2)}
+For matrix $\mathbf{A}\in\mathbb{R}^{n\times n}$, we have $\mathcal{V} = \{\mathbf{X} \in \mathbb{R}^{n\times n}|\mathbf{AX}=\mathbf{XA}\}$,
+\begin{enumerate}
+	\item Prove that $\mathcal{V}$ is a linear subspace of the linear space $\mathbb{R}^{n\times n}$;
+	\item If $\mathbf{A} = \left( 
+  \begin{array}{ccc}  
+    1 & 1\\  
+    2 & -1 
+  \end{array}
+\right)  $ , please give a basis and the dimension of $\mathcal{V}$.
+\end{enumerate}
+
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+
+\newpage
+\noindent\textbf{Problem 2}. \textcolor{blue}{(5 points)}
+The linear space $\mathcal{S}$ contains the following polynomials: $f_1(t) = 1 + 4t - 2t^2 + t^3 $, $f_2(t) = -1 + 9t - 3t^2 + 2t^3 $, $f_3(t) = -5 + 6t + t^3 $, $f_4(t) = 5 + 7t - 5t^2 + 2t^3 $. Please give the rank of the quadruple $(f_1(t),f_2(t),f_3(t),f_4(t))$ and its maximal linearly independent set.
+
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+
+\newpage
+\noindent\textbf{Problem 3}. \textcolor{blue}{(5 points $\times$ 2)}
+For any matrix $\mathbf{A}\in\mathbb{R}^{n\times n}$, $\mathcal{S}_1 = \{\mathbf{A} \in \mathbb{R}^{n\times n}|\mathbf{A}^T=\mathbf{A}\}$ and $\mathcal{S}_2 = \{\mathbf{A} \in \mathbb{R}^{n\times n}|\mathbf{A}^T=-\mathbf{A}\}$ are two subspaces of $\mathbb{R}^{n\times n}$, 
+\begin{enumerate}
+	\item Prove that $ \mathbb{R}^{n\times n} =\mathcal{S}_1 \oplus \mathcal{S}_2$.
+	\item If n = 3,  please give a basis of $\mathcal{S}_1$ and the dimension of $\mathcal{S}_2$.
+\end{enumerate}
+
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+
+
+\newpage
+\section{Four fundamental subspaces}
+
+\noindent\textbf{Problem 1}. \textcolor{blue}{(2 points + 5 points)}
+For an $n$ $\times$ $m$ real matrix $\mathbf{A}$.
+\begin{enumerate} 
+\item Determine the relationship of $dim(\mathcal{R}(\mathbf{A}))$, $dim(\mathcal{N}(\mathbf{A}))$, and $rank(\mathbf{A})$. 
+
+\item Prove that $\mathcal{N}(\mathbf{A}) \oplus \mathcal{R}(\mathbf{A}^T)=\mathbb{R}^{m}$.
+\end{enumerate}
+
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+
+
+\newpage
+
+\noindent\textbf{Problem 2}. \textcolor{blue}{(3 points + 5 points $\times$ 3)}
+Given matrices $\Ab,\Bb\in \Rbb^{n\times m}$ and $rank(\left[ \mathbf{A},\mathbf{B} \right] ) = n$.
+
+\begin{enumerate}
+    \item Determine the relationship between $dim(\mathcal{N}(\mathbf{A}^T)) $ and $dim(\mathcal{R}(\mathbf{B})) $.% in general case.
+    \item If $ \mathbf{A}^T \mathbf{B}=0 $, determine the relationship between $\mathcal{N}(\mathbf{A}^T) $ and $\mathcal{R}(\mathbf{B}) $. 
+     \item Please determine the rank of $\left( 
+  \begin{array}{cc}  
+    \mathbf{A} & 0\\  
+    0 & \mathbf{B}
+  \end{array}
+  \right) $.
+     \item Please determine the $\bf{Supremacy}$ and $\bf{Infimum}$ of the rank of $\left(
+  \begin{array}{cc}  
+    \mathbf{A}\\  
+    \mathbf{B}
+  \end{array}
+  \right) $ using $m$ or $n$. \\
+  (All Matrix $\mathbf{A}$'s, and $\mathbf{B}$'s that satisfy the mentioned condition)  
+ \end{enumerate}
+
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+
+\newpage
+\section{Vector norm and matrix norm}
+\noindent\textbf{Problem 1}. \textcolor{blue}{(5 points $\times$ 3)}
+ The Frobenius norm of a $\mathbb{R}^{n \times m}$ matrix $\mathbf{A}$ defined as the square root of the sum of the absolute squares of its elements, 
+    $$\Vert  \mathbf{A} \Vert_F \equiv \sqrt{\sum_{i =1 }^m \sum_{j=1}^n |a_{ij}|^2}, $$
+   it also equal to the square root of the matrix trace of $\mathbf{A}^T\mathbf{A}$, where $\mathbf{A}^T$ is the  transpose of $\mathbf{A}$,
+    $$ \Vert  \mathbf{A} \Vert_F = \sqrt{\textbf{Tr}(\mathbf{A}^T\mathbf{A})}. $$
+\begin{enumerate}
+    \item Show that Frobenius norm is a matrix norm. \\
+    \textbf{Hint}: You may use the Cauchy-Schwarz inequality $$\|\Ab\Bb\|_F \leq \|\Ab\|_F\|\Bb\|_F$$
+    \item The spectral norm of a matrix $\mathbf{A}$ is the largest singular value of $\mathbf{A}$ (the square root of the largest eigenvalue of the matrix $\mathbf{AA}^T$,
+    $$\Vert \mathbf{A} \Vert_2 = \sqrt{\lambda_{max}(\mathbf{AA}^T)} .$$\
+    Show that $\Vert \mathbf{A} \Vert_2 \leq \Vert  \mathbf{A} \Vert_F \leq \sqrt{n} \Vert \mathbf{A} \Vert_2$ 
+    \item Suppose $\mathbf{A} = \mathbf{xy}^T$, where $\mathbf{x,y} \in \mathbb{R}^n$, show that 
+    $$\Vert \mathbf{A} \Vert_F^2 = \Vert \mathbf{x} \Vert_2^2\Vert \mathbf{y} \Vert_2^2$$
+\end{enumerate}
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+
+\newpage
+\section{Projector and projection}
+\noindent\textbf{Problem 1}. \textcolor{blue}{(2 points+5 points $\times$ 3)}
+A rotation matrix $\mathbf{R} \in \mathbb{R}^{n \times n}$ is an orthogonal matrix $(\mathbf{RR}^T = \mathbf{I_n})$.\footnote{$\mathbf{I_n}$ is the identity matrix of size $n\times n$}
+\begin{enumerate}
+    \item According to the above definition, find all rotation matrices in $\mathbb{R}^{2 \times 2}$.
+    \item Let $\mathbf{R}_1$ and $\mathbf{R}_2$ be the rotation matrices in $\mathbb{R}^{2 \times 2}$, if $\mathbf{R}_1$ is rotation through $\alpha_1$ and $\mathbf{R}_2$ is rotation through $\alpha_2$. Consider: is  $\mathbf{R}_1 \mathbf{R}_2$ the rotation matrix. If the answer is "yes", what is the angle of rotation, or else explain why the answer is "no".
+    \item For arbitrarily rotation matrix $\mathbf{R} \in \mathbb{R}^{n \times n}$, if $\mathbf{S} = (\mathbf{R}-\mathbf{I_n})(\mathbf{R}+\mathbf{I_n})^{-1}$, show that $\mathbf{S}$ is a skew symmetric matrix ($\mathbf{S}^T = -\mathbf{S}$ )
+    \item If $\mathbf{S} \in \mathbb{R}^{n \times n}$ is a skew symmetric matrix, show that $\mathbf{R} = (\mathbf{I_n}-\mathbf{S})^{-1} (\mathbf{I_n} +\mathbf{S})$ is a rotation matrix.
+\end{enumerate}
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+
+\end{document}
