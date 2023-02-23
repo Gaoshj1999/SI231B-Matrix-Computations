@@ -1,0 +1,314 @@
+\documentclass[english,onecolumn]{IEEEtran}
+%\usepackage{CTEX}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{luainputenc}
+\usepackage[letterpaper]{geometry}
+\geometry{verbose}
+\usepackage{amsfonts}
+\usepackage{babel}
+\usepackage{extarrows}
+\usepackage[colorlinks]{hyperref}
+\usepackage{listings}
+\usepackage{color,xcolor}
+\usepackage{caption}
+\usepackage{amsmath,graphicx}
+\usepackage{algorithm}  
+\usepackage{algpseudocode} 
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}  % Use Input in the format of Algorithm  
+\renewcommand{\algorithmicensure}{\textbf{Output:}} % Use Output in the format of Algorithm
+\newenvironment{breakablealgorithm}
+\usepackage{subfigure} 
+\usepackage{cite}
+\usepackage{amsthm,amssymb}
+\usepackage{textcomp}
+\usepackage{bm}
+\usepackage{booktabs}
+
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+\topmargin            -18.0mm
+\textheight           226.0mm
+\oddsidemargin      -4.0mm
+\textwidth            166.0mm
+\def\baselinestretch{1.5}
+
+
+
+\begin{document}
+
+\begin{center}
+	\textbf{\LARGE{SI231 - Matrix Computations, 2021 Fall}}\\
+	{\Large Solution of Homework Set \#2}\\
+	\texttt{Prof. Yue Qiu}
+\par\end{center}
+
+\noindent
+\rule{\linewidth}{0.4pt}
+{\bf Acknowledgements:}
+\begin{enumerate}
+	\item Deadline: {\bf \textcolor{red}{2021-11-01 23:59:59}}
+	\item \textbf{Late Policy details} can be found on piazza.
+% 	you need apply to TA Xinyue Zhang(zhangxy11@) before the due.
+	\item Submit your homework in \textbf{Homework 2} on \textbf{Gradscope}. Entry Code: \textbf{2RY68R}. Make sure that you have \textbf{correctly select pages for each problem}. If not, you will \textbf{get 0 point}.
+	\item \textbf{No handwritten homework is accepted}, otherwise you will \textbf{get 0 point}. You need to write \LaTeX. (If you have difficulty in using \LaTeX, you are allowed to use \textbf{MS Word or Pages} for the first and the second homework to accommodate yourself.)
+	\item Use the given template and give your solution in English. Solution in Chinese is not allowed.
+	\item Your homework should be uploaded in the PDF format, and the naming format of the file is not specified.
+\end{enumerate}
+\rule{\linewidth}{0.4pt}
+
+\section{Solve Linear Equations}
+
+\noindent\textbf{Problem 1}. \textcolor{blue}{(12 points + 9 points)}\\
+Given matrix $\mathbf{A} = \begin{bmatrix}
+ 2 & 5 & -8 & 0 & 17\\ 
+ 1 & 3 & -5 & 1 & 5\\ 
+ -3 & -11 & 19 & -7 & -1\\ 
+ 1 & 7 & -13 & 5 & -3
+\end{bmatrix}$ $ \in \mathbb{R}^{4\times 5} $ and  matrix $\mathbf{B} = \begin{bmatrix}
+ 2 & 1 & -5 & 1 \\ 
+ 1 & -3 & 0 & -6 \\ 
+ 0 & 2 & -1 & 2 \\ 
+ 1 & 4 & -7 & 6
+\end{bmatrix}$ $ \in \mathbb{R}^{4\times 4} $.\\
+
+\begin{enumerate}
+  \item Find out the column space, row space and null space of the matrix $ \mathbf{A}$. (The answer is not unique, but the answer you get requires a detailed solving process, otherwise you will get zero points.)
+  \item For $\mathbf{b} = \begin{bmatrix}
+ 9 & -1 & 4 & 15 \end{bmatrix}^T \in \mathbb{R}^{4} $ Solve the linear equation system $\mathbf{Bx}$ = $\mathbf{b}$ with Gaussian Elimination, LU decomposition, and LU decomposition with partial pivoting, respectively. 
+\end{enumerate}
+\textbf{(You are highly required to write down your solution procedures in detail. And all values must be represented by integers or fractions, floating point numbers are not accepted.)}
+
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+	}
+
+\newpage
+
+\section{More about LU decomposition}
+
+\noindent\textbf{Problem 1}. \textcolor{blue}{(5 points $\times$ 3)}
+\\
+ $\mathbf{A} \in \mathbb{R}^{n \times n}$ is a nonsingular matrix and we have $\mathbf{A}$ = $\mathbf{L}\mathbf{U}$, while $\mathbf{U} \in \mathbb{R}^{n \times n}$ is a upper triangular matrix and $\mathbf{L} \in \mathbb{R}^{n \times n}$ is a lower triangular matrix with $\mathbf{L}_{i,i}=1$.
+
+\begin{enumerate}
+    \item  Prove every leading principal submatrix $\mathbf{A}_{\{1, \dots, k \}}$ of $\mathbf{A}$ satisfies:\\
+    det$(\mathbf{A}_{\{1, \dots, k \}}) \neq 0 $
+    \item Prove the uniqueness of matrix $\mathbf{L}$ and $\mathbf{U}$
+    \item If $\mathbf{A}$ is symmetric, please illustrate the relationship between the matrix $\mathbf{L}$ and the matrix $\mathbf{U}$.
+\end{enumerate}
+
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+	}
+
+
+\newpage
+
+
+\section{cholesky decomposition  }
+
+\noindent\textbf{Problem 1}. \textcolor{blue}{(7 points $\times$ 2)}\\
+The Cholesky  decomposition  is a decomposition of a symmetric positive-definite  matrix  into the product of a lower triangular matrix and its transpose.
+The  symmetric positive-definite matrix $\mathbf{A} \in \mathbb{R}^{n \times n}$ can be factored as 
+ $$ \mathbf{A} = \mathbf{L} \mathbf{L}^T ,$$
+ where   $\mathbf{L} $ is lower triangular matrix with positive diagonal elements.\\
+
+\begin{enumerate}
+   
+    \item Consider the matrix $\mathbf{A} = \begin{bmatrix}
+ 4 & 4 & -8 & 4 \\ 
+ 4 & 5 & -6 & 6 \\ 
+ -8 & -6 & 24 & 4\\ 
+ 4 & 6 & 4 & 25
+\end{bmatrix}$ , and  give the Cholesky  decomposition $\mathbf{A} = \mathbf{\mathbf{LL}}^T$.
+
+   \item Consider a symmetric positive-definite matrix $\mathbf{A} \in \mathbb{R}^{n \times n}$, and its Cholesky  decomposition $\mathbf{A} = \mathbf{LL^T}$.  Prove that $\kappa_{F}(\mathbf{L}) \leq n\sqrt{\kappa_2(\mathbf{A})}$.\footnote{  $\kappa(\mathbf{A})$ associated with the linear equation $\mathbf{Ax} =\mathbf{b}$ gives a bound on how inaccurate the solution $\mathbf{x}$ will be after approximation. $\kappa_F(\mathbf{A}) =  \Vert \mathbf{A} \Vert_F \Vert\mathbf{A}^{-1} \Vert_F $  and 
+  $\kappa_2(\mathbf{A}) =  \Vert \mathbf{A} \Vert_2 \Vert\mathbf{A}^{-1} \Vert_2 $ }\\ 
+  \textbf{Hint:}  If  matrix $\mathbf{A}$ is SPD, all its eigenvalues are positive, $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n >0$. You can use the result that  $\Vert \mathbf{A} \Vert_2 = \lambda_1 $ and $\Vert \mathbf{A}^{-1} \Vert_2 = \frac{1}{\lambda_n}$
+   
+  
+\end{enumerate}
+
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+}
+
+\newpage
+\section{banded matrix}
+
+\noindent\textbf{Problem 1}. \textcolor{blue}{(5 points $+$ 10 points)}\\
+  $\mathbf{A} \in \mathbb{R}^{n \times n}$ is called a banded matrix if $a_{ij} = 0$ whenever $|i-j| > m$ for some positive integer $m$(called the bandwidth). If $\mathbf{A}$ is a nonsingular matrix with bandwidth $m$, and  has LU decomposition $\mathbf{A} = \mathbf{LU}$,then $\mathbf{L}$ inherits the lower band structure of $\mathbf{A}$ with "lower bandwidth " $m$ and  $\mathbf{U}$ inherits the upper band structure of $\mathbf{A}$ with "upper bandwidth " $m$. \\
+  
+\begin{enumerate}
+   
+    \item LU decomposition is particularly efficient in the case of banded matrices, consider a banded matrix $\mathbf{A} \in \mathbb{R}^{n \times n}$ with bandwidth $m$ ($m \ll n$) . The solution of the set of equation $\mathbf{Ax = b}$ can be determined in the steps 
+     $$\mathbf{Ly = b}, \qquad   \mathbf{Ux = y},$$
+      How many flops does this linear system require? (just calculate the forward and backwards substitution flops but need detail derivation) 
+    \item  Consider a symmetric positive-definite banded matrix 
+    $$\mathbf{A} = \begin{bmatrix}
+    a & b   & 0  & \cdots &0 \\
+    b & a  & b & \cdots & 0 \\
+    0   & b  &\ddots &\ddots   & \vdots \\
+    \vdots& \vdots&\ddots & a& b \\
+    0   & 0  &\cdots   &b & a \\
+    \end{bmatrix}$$
+    where $a >0$ and $ a > 2 \vert b \vert $ .\\
+    Find the efficient  Cholesky  decomposition of the banded matrix $\mathbf{A}$, derive the complexity of your efficient Cholesky decomposition algorithm  and try to complete the Algorithm \ref{alg: LU for banded}.(You should write the derivation of finding the Cholesky decomposition of the matrix $\mathbf{A}$)
+    \begin{algorithm}[htb]
+    \caption{  Cholesky  decomposition for matrix $\mathbf{A}$}
+    \label{alg: LU for banded}
+     \begin{algorithmic}[1]
+    \Require
+     The matrix $\mathbf{A} \in \mathbb{R}^{n \times n}$
+    \Ensure
+     Cholesky  decomposition  of $\mathbf{A}$;
+    \State complete the algorithm here ...
+  \end{algorithmic}
+\end{algorithm}
+
+ 
+\end{enumerate}
+\noindent\textcolor{blue}{
+	\textbf{Solution:}
+	}
+
+
+\clearpage
+
+\section{Programming}
+
+\noindent\textbf{Problem 1}\textcolor{blue}{(5 points + 10 points)}
+
+In this problem, we explore  the efficiency of the LU method together with the classical linear system solvers we have learnt in linear algebra. 
+
+\begin{enumerate}
+	\item Derive the complexity of the LU decomposition. Particularly, how many flops does the LU decomposition require? The corresponding pseudo code (in {\sf Matlab}) is provided as follows\footnote{$triu(\textbf{U})$ is the Upper triangular part of the matrix $\textbf{U}$}: 
+	
+\begin{algorithm}[htb]
+  \caption{ Pseudo-code of LU decomposition}
+  \begin{algorithmic}[1]
+    \Function{Naive\_lu}{$\textbf{A}$} 
+    \State $n = size(\textbf{A},1)$
+    \State $\textbf{L} = eye(n)$
+    \State $\textbf{U} = \textbf{A} $
+    \For{$k=1 \to n-1$}
+        \For {$j=k+1 \to n$}
+            \State $\textbf{L}(j,k)=\textbf{U}(j,k)/\textbf{U}(k,k)$
+            \State $\textbf{U}(j,k:n)=\textbf{U}(j,k:n)-\textbf{L}(j,k)*\textbf{U}(k,k:n)$
+        \EndFor
+    \EndFor
+    % \For {$k=2 \to n$}
+    %     \State $\textbf{U}(k,1:k-1)=0$
+    % \EndFor
+    \State{$\textbf{U} = triu(\textbf{U})$}
+    \EndFunction
+     
+  \end{algorithmic}
+\end{algorithm}
+
+\item Randomly generate a non-singular matrix $\mathbf{A}\in\mathbb{R}^{n\times n}$ and a vector $\mathbf{b}\in\mathbb{R}^{n\times 1}$, then program the following  methods to solve $\mathbf{Ax=b}$: 
+\begin{itemize}
+  \item {\bf LU decomposition.} We first find the LU decomposition of $\mathbf{A}$, then we solve $\mathbf{L}\mathbf{y}=\mathbf{b}$ and $\mathbf{U}\mathbf{x}=\mathbf{y}$.
+  
+  \item {\bf The inverse method:} Use the inverse of $\mathbf{A}$ to solve the problem, which can be written as,
+      \[
+      \mathbf{x}=\mathbf{A}^{-1}\mathbf{b}\,.
+      \]
+\end{itemize}
+In your homework, you are required to submit the time-consuming plot (\textbf{one figure}) of given methods against the size of matrix $\mathbf{A}$ (i.e., $n$), where $n=100, 200,\dots, 1000$ (you can try larger $n$ and see what will happen, be careful with the memory use of your PC!). 
+
+Remarks:
+\begin{itemize}
+  \item You can use any language you like to program, but do not use built-in functions which are highly optimized to compute the LU decomposition or the matrix inverse (for example, {\sf Matlab} function {\sf lu()} and {\sf inv()}). Otherwise, your results will contradict the complexity analysis, and your score will be discounted. You can implement the simplest version of these methods by yourself. 
+  \item In {\sf Matlab}, to randomly generate a matrix or a vector, you can use {\sf randn} function to generate normally distributed random numbers.
+\end{itemize}
+\end{enumerate} 
+
+\textbf{Remarks}:
+\begin{enumerate}
+    \item The definition of \emph{flop} is: \textbf{The float operations of float numbers}. So the division($/$), multiplication($\times$), addition($+$) and subtraction($-$) should be taken into consideration. However, the assignment ($=$) is not an operation on float numbers by convention.
+    \item When handing in your homework in gradescope, package all your codes into {\bf your\_student\_id+hw2\_code.zip} and upload. In the package, you also need to include a file named README.txt/md to clearly identify the function of each file. Make sure that your codes can run and are consistent with your solutions
+\end{enumerate}
+
+\noindent\textcolor{blue}{
+{\bf Solution:}
+}
+
+\newpage
+\section{Roundoff Error}
+
+\noindent\textbf{Problem 1} \textcolor{blue}{(10 points + 4 points + 6 points)}
+
+
+Given a matrix $\mathbf{A}\in \mathbb{R}^{n\times n}$, consider the roundoff error in the process of solving $\mathbf{A}\bf{x} = \bf{b}$ by Gaussian elimination in three stages:
+\begin{enumerate}
+    \item[1.] Decompose $\mathbf{A}$ into $\mathbf{L}\mathbf{U}$, with roundoff error $\mathbf{E}$, $\bar{\mathbf{L}}$ and $\bar{\mathbf{U}}$ are computed instead, i.e., 
+    \begin{equation*}
+        \mathbf{A} + \mathbf{E} = \bar{\mathbf{L}}\bar{\mathbf{U}}\,.
+    \end{equation*}
+    \item[2.] Solving $\mathbf{L}\bf{y} = \bf{b}$, numerically with roundoff error $\delta \mathbf{\bar{L}}$, $\hat{\mathbf{y}} = \bf{y}+\delta \bf{y}$ are computed instead.
+    \begin{equation*}
+        (\bar{\mathbf{L}}+\delta \bar{\mathbf{L}})(\bf{y}+\delta \bf{y}) = \bf{b}\,.
+    \end{equation*}
+    \item[3.] Solving $\mathbf{U}\bf{x} = \bf{y}$, numerically with roundoff error $\delta \mathbf{\bar{U}}$, $\hat{\bf{x}} = \bf{x}+\delta \bf{x}$ are computed instead.
+    \begin{equation*}
+        (\bar{\mathbf{U}}+\delta \bar{\mathbf{U}})(\bf{x}+\delta \bf{x}) = \hat{y}\,.
+    \end{equation*}
+    
+\end{enumerate}
+Finally, we can get the computed solution $\hat{\bf{x}}$ and 
+\begin{align*}
+    \bf{b} = &(\bar{\mathbf{L}}+\delta \bar{\mathbf{L}})(\bar{\mathbf{U}}+\delta \bar{\mathbf{U}})(\bf{x}+\delta \bf{x})\\
+     = & (\mathbf{A}+\delta \mathbf{A})(\bf{\bf{x}}+\delta \bf{\bf{x}})\,.
+\end{align*}
+
+\begin{enumerate}
+    \item Prove the relative error of $\bf{x}$ has an upper bound as follows
+    \begin{equation*}
+        \frac{\|\hat{\mathbf{x}}-\mathbf{x}\|}{\|\mathbf{x}\|} = \frac{\|\delta \bf{x}\|}{\|\bf{x}\|} \leq \frac{1}{1-\kappa(\mathbf{A})\frac{\|\delta \mathbf{A}\|}{\|\mathbf{A}\|}}\kappa(\mathbf{A})\frac{\|\delta \mathbf{A}\|}{\|\mathbf{A}\|},
+    \end{equation*}
+    where $\kappa(\mathbf{A}) = \|\mathbf{A}\|\|\mathbf{A}^{-1}\|$ denotes the condition number of the matrix $\mathbf{A}$ (Suppose $\mathbf{A}$ and $\mathbf{A}+\delta \mathbf{A}$ are nonsingular and $\|\mathbf{A}^{-1}\|\|\delta \mathbf{A}\|<1$).
+    
+    \textbf{Hint}: The following equation might be useful,
+    \begin{align*}
+        \|(\mathbf{I}-\mathbf{B})^{-1}\| =  \|\sum_{k = 0}^{\infty} \mathbf{B}^k\| \leq \sum_{k = 0}^{\infty} \|\mathbf{B}\|^k \leq  \frac{1}{1-\|\mathbf{B}\|}\,.
+    \end{align*}
+    
+    where $\mathbf{I}-\mathbf{B}$ is nonsingular and $\|\mathbf{B}\| <1$.
+    
+    \item Given the system $\mathbf{A}\mathbf{x} = \mathbf{b}$
+    \[
+        \begin{bmatrix}0.986 & 0.579 \\ 0.409 & 0.237\end{bmatrix} \begin{bmatrix}x_1 \\ x_2 \end{bmatrix} = 
+        \begin{bmatrix}0.235 \\ 0.107 \end{bmatrix}.
+    \]
+    Compute the condition number $\kappa_\infty(\mathbf{A})$\footnote{$\kappa_\infty(\mathbf{A}) = \|\mathbf{A}\|_\infty\|\mathbf{A}^{-1}\|_\infty$} and the solution $\mathbf{x}$.
+    \item Continue with the same system in $2)$. Suppose the roundoff error
+    \[
+    \delta \mathbf{A} = u\begin{bmatrix}2 & 6 \\ 4 & 8\end{bmatrix},
+    \]
+    where $u$ is a small scalar. Fill the table below.
+    \begin{table}[]
+        \centering
+        \caption{Compute the quantities}
+        \begin{tabular}{c|c|c|c|c}
+        \hline
+            u & $|\delta x_1|$ & $|\delta x_2|$ & $\frac{1}{1-\kappa(\mathbf{A})\frac{\|\delta \mathbf{A}\|}{\|\mathbf{A}\|}}\kappa(\mathbf{A})\frac{\|\delta \mathbf{A}\|}{\|\mathbf{A}\|}$ & $\frac{\|\delta \textbf{x}\|_\infty}{\|\textbf{x}\|_\infty}$\\
+            \hline
+            $10^{-1}$ & & & \\
+            $10^{-2}$ & & & \\
+            $10^{-4}$ & & & \\
+            $10^{-6}$ & & & \\
+            $10^{-8}$ & & & \\
+            $10^{-10}$ & & & \\
+            \hline
+        \end{tabular}
+        \label{tab:my_label}
+    \end{table}
+    
+\end{enumerate}
+
+\noindent\textcolor{blue}{\textbf{Solution:}
+}
+
+
+\newpage
+\end{document}
